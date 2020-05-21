@@ -22,6 +22,15 @@ public class Article {
     private Integer authorId;
     @TableField("createDate")
     private Date createDate;
+    private Long tips;
+
+    public Long getTips() {
+        return tips;
+    }
+
+    public void setTips(Long tips) {
+        this.tips = tips;
+    }
 
     public Integer getId() {
         return id;
