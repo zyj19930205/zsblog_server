@@ -50,4 +50,15 @@ public class User {
     public void setFansnum(Integer fansnum) {
         this.fansnum = fansnum;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", fansnum=" + fansnum +
+                '}';
+    }
 }
