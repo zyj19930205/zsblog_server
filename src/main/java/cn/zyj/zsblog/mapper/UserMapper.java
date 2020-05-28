@@ -23,4 +23,13 @@ public interface UserMapper extends BaseMapper<UserMapper> {
      */
     @Select("select*from zs_user where username=#{username} and password=#{password}")
      List<User> selectUserByNameAndPwd(@Param("username") String username, @Param("password") String password);
+
+
+    /**
+     * 根据ID查用户
+     * @param userId
+     * @return
+     */
+    @Select("select*from zs_user where id=#{id}")
+    User selectUserById(@Param("id") String userId);
 }

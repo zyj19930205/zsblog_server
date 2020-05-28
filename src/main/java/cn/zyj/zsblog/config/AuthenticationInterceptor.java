@@ -48,15 +48,17 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 String userId;
                 try {
                     userId = JWT.decode(token).getAudience().get(0);
+                    System.out.println("userId is"+userId);
                 } catch (JWTDecodeException j) {
                     throw new RuntimeException("401");
                 }
-                List<User> users = userMapper.selectUserByNameAndPwd("qwe1234rt","qwe1234");
-                if (users.size() == 0) {
+//                List<User> users = userMapper.selectUserByNameAndPwd("qwe1234rt","qwe1234");
+                User user = userMapper.selectUserById(userId);
+                if (user == null) {
                     throw new RuntimeException("用户不存在，请重新登录");
                 }
                 // 验证 token
-                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(users.get(0).getPassword())).build();
+                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getPassword())).build();
                 try {
                     jwtVerifier.verify(token);
                 } catch (JWTVerificationException e) {

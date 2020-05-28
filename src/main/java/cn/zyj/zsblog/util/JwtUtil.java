@@ -16,7 +16,7 @@ import java.util.Map;
 public class JwtUtil {
     public static String getTokenUserId() {
         // 从 http 请求头中取出 token
-        String token = getRequest().getHeader("token");
+        String token = getRequest().getHeader("authorization");
         String userId = JWT.decode(token).getAudience().get(0);
         return userId;
     }

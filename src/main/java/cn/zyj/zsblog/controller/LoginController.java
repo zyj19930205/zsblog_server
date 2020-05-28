@@ -40,7 +40,7 @@ public class LoginController {
         Cookie cookie=new Cookie("token",token);
         cookie.setPath("/");
         respo.addCookie(cookie);
-        return ResultMessage.resultMessage_success(users);
+        return ResultMessage.resultMessage_success(users,token);
     }
 
 
