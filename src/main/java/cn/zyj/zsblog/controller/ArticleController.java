@@ -11,10 +11,14 @@ import io.jsonwebtoken.Claims;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author 邹宇杰
@@ -48,11 +52,13 @@ public class ArticleController {
 
     @RequestMapping(value = "/article",method = RequestMethod.GET)
     public Map<Long,Map<String,Object>> getArticles(HttpServletRequest request){
-        String userId = JwtUtil.getTokenUserId();
+//            String userId = JwtUtil.getTokenUserId();
+            Map<Long, Map<String, Object>> articles = articleMapper.getArticle();
+            return articles;
         //List<Article> articles=articleMapper.selectList(null);
-        Map<Long,Map<String,Object>> articles=articleMapper.getArticle();
 
-        return articles;
+
+
     }
 
     @RequestMapping(value = "articleByPage",method = RequestMethod.GET)
@@ -71,5 +77,36 @@ public class ArticleController {
         article.setTips(tips);
         articleMapper.updateById(article);
         return "success";
+    }
+
+
+    /**
+     * 文件上传
+     * @param file
+     * @return
+     */
+    @RequestMapping("/getFile")
+    public String getFile(@RequestParam(value = "img") MultipartFile file){
+        String imgName = file.getOriginalFilename();
+        // 后缀名
+        String suffixName = imgName.substring(imgName.lastIndexOf("."));
+        // 上传后的路径
+        String filePath = "C://img//";
+        // 新文件名
+        imgName = UUID.randomUUID() + suffixName;
+        File dest = new File(filePath + imgName);
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        try {
+            file.transferTo(dest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String filename = "/img/" + imgName;
+        String new_filePath = "C:"+filename;
+        System.out.println(new_filePath);
+        return new_filePath;
+
     }
 }
