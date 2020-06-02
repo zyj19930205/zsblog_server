@@ -5,6 +5,7 @@ import cn.zyj.zsblog.config.UserLoginToken;
 import cn.zyj.zsblog.entity.Article;
 import cn.zyj.zsblog.mapper.ArticleMapper;
 import cn.zyj.zsblog.util.JwtUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.jsonwebtoken.Claims;
@@ -46,6 +47,7 @@ public class ArticleController {
 
     @RequestMapping(value = "/article", method = RequestMethod.POST)
     public String addArticle(Article article){
+        System.out.println(article);
         articleMapper.insert(article);
         return "haha";
     }
@@ -56,9 +58,14 @@ public class ArticleController {
             Map<Long, Map<String, Object>> articles = articleMapper.getArticle();
             return articles;
         //List<Article> articles=articleMapper.selectList(null);
+    }
 
-
-
+    @RequestMapping(value ="/articles/{userId}",method = RequestMethod.GET)
+    public List<Article> getArticlesByUserId(@PathVariable int userId){
+        QueryWrapper<Article> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("authorId",userId);
+        List<Article> articles=articleMapper.selectList(queryWrapper);
+        return articles;
     }
 
     @RequestMapping(value = "articleByPage",method = RequestMethod.GET)
@@ -104,9 +111,26 @@ public class ArticleController {
             e.printStackTrace();
         }
         String filename = "/img/" + imgName;
-        String new_filePath = "C:"+filename;
-        System.out.println(new_filePath);
-        return new_filePath;
-
+        return filename;
     }
+
+    @RequestMapping(value ="del/{id}",method = RequestMethod.DELETE)
+    public String delArticleById(@PathVariable int id){
+        int result = articleMapper.deleteById(id);
+        return "success!";
+    }
+
+    @RequestMapping(value="/upd",method = RequestMethod.PUT)
+    public int updateArticleById(Article article){
+        int result = articleMapper.updateById(article);
+        return result;
+    }
+
+    @RequestMapping(value = "/addTip/{article_id}",method = RequestMethod.GET)
+    public String addTip(@PathVariable int article_id){
+        articleMapper.updateStarsById(article_id);
+        return "success";
+    }
+
+
 }
