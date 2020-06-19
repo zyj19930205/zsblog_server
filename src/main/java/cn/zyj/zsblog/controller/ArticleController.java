@@ -69,7 +69,7 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "articleByPage",method = RequestMethod.GET)
-    public List<Article> getArticlesByPage(@RequestParam(defaultValue = "15") int limit,@RequestParam(defaultValue = "1") int page){
+    public List<Article> getArticlesByPage(@RequestParam(defaultValue = "10") int limit,@RequestParam(defaultValue = "1") int page){
         IPage<Article> articleIPage=new Page<>(page,limit);
         articleIPage = articleMapper.selectPage(articleIPage,null);
         List<Article> articles=articleIPage.getRecords();
@@ -120,8 +120,9 @@ public class ArticleController {
         return "success!";
     }
 
-    @RequestMapping(value="/upd",method = RequestMethod.PUT)
+    @RequestMapping(value="/upd",method = RequestMethod.POST)
     public int updateArticleById(Article article){
+        System.out.println("有人访问了更新接口，传来的数据是"+article);
         int result = articleMapper.updateById(article);
         return result;
     }
