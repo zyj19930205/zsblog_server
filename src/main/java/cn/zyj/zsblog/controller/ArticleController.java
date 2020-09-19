@@ -35,7 +35,7 @@ public class ArticleController {
     HttpServletRequest req;
 
 
-//    @UserLoginToken
+    @UserLoginToken
     @RequestMapping(value = "/article/{id}", method =  RequestMethod.GET)
     public Map<String,Object> getArticleById(@PathVariable int id){
         //Article article=articleMapper.selectById(id);
