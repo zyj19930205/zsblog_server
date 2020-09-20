@@ -25,7 +25,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
 
 
     @MapKey("id")
-    @Select("select zs_article.*,zs_user.nickname from zs_user,zs_article where zs_user.id=zs_article.authorId")
+    @Select("select zs_article.*,zs_user.nickname from zs_user,zs_article where zs_user.id=zs_article.authorId order by id desc")
     Map<Long,Map<String,Object>> getArticle();
 
     @Update("update zs_article set stars=stars+1 where id= #{id}")

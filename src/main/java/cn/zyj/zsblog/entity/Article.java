@@ -16,6 +16,23 @@ public class Article {
 
     @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
+
+    public Integer getStars() {
+        return stars;
+    }
+
+    public void setStars(Integer stars) {
+        this.stars = stars;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
     private String title;
     private String content;
     @TableField("authorId")
@@ -23,6 +40,8 @@ public class Article {
     @TableField("createDate")
     private Date createDate;
     private Long tips;
+    private Integer stars;
+    private Integer type;
 
     public Long getTips() {
         return tips;

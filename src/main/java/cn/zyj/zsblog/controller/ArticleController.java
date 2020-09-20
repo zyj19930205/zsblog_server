@@ -35,7 +35,7 @@ public class ArticleController {
     HttpServletRequest req;
 
 
-    @UserLoginToken
+//    @UserLoginToken
     @RequestMapping(value = "/article/{id}", method =  RequestMethod.GET)
     public Map<String,Object> getArticleById(@PathVariable int id){
         //Article article=articleMapper.selectById(id);
@@ -133,5 +133,14 @@ public class ArticleController {
         return "success";
     }
 
+    @RequestMapping(value = "/hotArticle",method = RequestMethod.GET)
+    public List<Article> getHotArticle(){
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.orderByDesc("stars");
+        queryWrapper.last("limit 0,5");
+        List<Article> articles=articleMapper.selectList(queryWrapper);
+        return articles;
+
+    }
 
 }
