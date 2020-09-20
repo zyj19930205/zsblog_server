@@ -38,10 +38,32 @@ public class Article {
     @TableField("authorId")
     private Integer authorId;
     @TableField("createDate")
-    private Date createDate;
+    private String createDate;
     private Long tips;
     private Integer stars;
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
     private Integer type;
+    @TableField("authorName")
+    private String authorName;
+
+    public Integer getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(Integer commentNum) {
+        this.commentNum = commentNum;
+    }
+
+    @TableField("commentNum")
+    private Integer commentNum;
 
     public Long getTips() {
         return tips;
@@ -83,11 +105,11 @@ public class Article {
         this.authorId = authorId;
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 

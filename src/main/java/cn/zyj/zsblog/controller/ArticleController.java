@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -140,7 +142,22 @@ public class ArticleController {
         queryWrapper.last("limit 0,5");
         List<Article> articles=articleMapper.selectList(queryWrapper);
         return articles;
+    }
 
+    @RequestMapping(value ="/articleNum/{id}",method = RequestMethod.GET)
+    public Integer getArticleNum(@PathVariable int id){
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("authorId",id);
+        List<Article> articles=articleMapper.selectList(queryWrapper);
+        return articles.size();
+    }
+
+    @RequestMapping(value = "/getArticlesByContent/{content}",method = RequestMethod.POST)
+    public List<Article> getArticlesByContent(@PathVariable String content){
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.like("title",content);
+        List<Article> articles=articleMapper.selectList(queryWrapper);
+        return articles;
     }
 
 }
