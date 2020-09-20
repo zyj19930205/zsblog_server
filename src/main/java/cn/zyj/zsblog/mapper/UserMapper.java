@@ -12,7 +12,7 @@ import java.util.List;
  * @author 37980
  */
 @Repository
-public interface UserMapper extends BaseMapper<UserMapper> {
+public interface UserMapper extends BaseMapper<User> {
 
 
     /**

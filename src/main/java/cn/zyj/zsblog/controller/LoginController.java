@@ -54,4 +54,10 @@ public class LoginController {
 
         return "验证通过！";
     }
+
+    @RequestMapping(value = "/changePwd",method = RequestMethod.POST)
+    public String changePwd(User user){
+        userMapper.updateById(user);
+        return "修改成功!";
+    }
 }

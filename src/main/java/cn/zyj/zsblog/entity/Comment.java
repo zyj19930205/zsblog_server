@@ -48,6 +48,16 @@ public class Comment {
     private String userName;
     private int agree;
     private int reject;
+    @TableField("articleName")
+    private String articleName;
+
+    public String getArticleName() {
+        return articleName;
+    }
+
+    public void setArticleName(String articleName) {
+        this.articleName = articleName;
+    }
 
     public int getId() {
         return id;

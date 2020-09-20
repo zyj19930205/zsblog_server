@@ -1,9 +1,13 @@
 package cn.zyj.zsblog.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 /**
  * @author zyj
  * @date 2020/5/21
  */
+@TableName("zs_user")
 public class User {
     private Integer id;
     private String username;

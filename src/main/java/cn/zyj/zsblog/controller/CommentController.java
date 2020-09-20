@@ -35,4 +35,16 @@ public class CommentController {
         return "提交成功！";
     }
 
+    @RequestMapping(value = "/comments",method = RequestMethod.GET)
+    public List<Comment> getAllComments(){
+        List<Comment> comments=commentMapper.selectList(null);
+        return comments;
+    }
+
+    @RequestMapping(value = "/delcom/{id}",method = RequestMethod.POST)
+    public String delComment(@PathVariable int id){
+        commentMapper.deleteById(id);
+        return "删除成功！";
+    }
+
 }
